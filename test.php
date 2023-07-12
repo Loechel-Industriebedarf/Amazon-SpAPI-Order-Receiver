@@ -38,19 +38,19 @@ try {
 }
 
 */
-phpinfo();
+//phpinfo();
 
 
 /***********************************************
 * Get reports
 ***********************************************/
-
+/*
 echo '<h1>Get Reports</h1>';
 
 $apiInstance = new SellingPartnerApi\Api\ReportsV20210630Api($config);
 $objDateTime = new DateTime('Now');
 $created_until = $objDateTime->format("Y-m-d\TH:i:sP");
-$objDateTime = new DateTime('01/01/2023');
+$objDateTime = new DateTime('07/01/2023');
 $created_since = $objDateTime->format("Y-m-d\TH:i:sP");
 
 echo "From: " . var_dump($created_since);
@@ -81,7 +81,7 @@ $report_type = array('GET_V2_SETTLEMENT_REPORT_DATA_FLAT_FILE', 'GET_FLAT_FILE_O
 'GET_FLAT_FILE_PENDING_ORDERS_DATA', 'GET_CONVERGED_FLAT_FILE_PENDING_ORDERS_DATA',
 'GET_V2_SETTLEMENT_REPORT_DATA_FLAT_FILE_V2');
 
-$report_type = array('GET_FLAT_FILE_ORDER_REPORT_DATA_INVOICING'); //Important?
+$report_type = array('GET_FLAT_FILE_ORDER_REPORT_DATA_SHIPPING'); //Important?
 
 $processing_statuses = array('DONE'); // string[] | A list of processing statuses used to filter reports.
 $marketplaceIds = array('A1PA6795UKMFR9'); //Germany
@@ -97,6 +97,7 @@ try {
 } catch (Exception $e) {
 	echo 'Exception when calling ReportsApi->getReports: ', $e->getMessage(), PHP_EOL;
 }
+*/
 
 
 
@@ -104,12 +105,10 @@ try {
 
 
 
-
-/*
 echo "<h1>Get download URL of report</h1>";
 
 $apiInstance = new SellingPartnerApi\Api\ReportsV20210630Api($config);
-$report_document_id = 'amzn1.spdoc.1.4.eu.dd3b2a88-fea4-47a2-bd50-5326b2775dfd.T3USY41UD73CD5.1117'; // string | The identifier for the report document.
+$report_document_id = 'amzn1.spdoc.1.4.eu.d4b0c3fb-9d8b-4cb2-8a0f-6401e539b2d2.TVJ0IA8K48OTZ.82300'; // string | The identifier for the report document.
 $report_type = 'GET_V2_SETTLEMENT_REPORT_DATA_FLAT_FILE'; // string | The name of the document's report type.
 
 try {
@@ -130,7 +129,7 @@ echo "<h1>Download URL</h1>";
 echo $result['url'];
 
 
-/*
+
 
 
 /***********************************************
@@ -224,3 +223,56 @@ try {
     echo 'Exception when calling OrdersV0Api->getOrders: ', $e->getMessage(), PHP_EOL;
 }
 */
+
+
+
+/***********************************************
+* Create reports schedule
+***********************************************/
+/*
+
+$apiInstance = new SellingPartnerApi\Api\ReportsV20210630Api($config);
+$body = new \SellingPartnerApi\Model\ReportsV20210630\CreateReportScheduleSpecification(); // \SellingPartnerApi\Model\ReportsV20210630\CreateReportScheduleSpecification
+
+$body->setReportType('GET_FLAT_FILE_ORDER_REPORT_DATA_SHIPPING');
+$body->setPeriod('PT15M'); //15 minutes
+$body->setMarketplaceIds(array('A1PA6795UKMFR9')); //Germany
+
+try {
+    $result = $apiInstance->createReportSchedule($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ReportsV20210630Api->createReportSchedule: ', $e->getMessage(), PHP_EOL;
+}
+
+
+/***********************************************
+* Get report by id
+***********************************************/
+/*
+$apiInstance = new SellingPartnerApi\Api\ReportsV20210630Api($config);
+$report_id = '50006019548'; // string | The identifier for the report. This identifier is unique only in combination with a seller ID.
+
+try {
+    $result = $apiInstance->getReport($report_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ReportsV20210630Api->getReport: ', $e->getMessage(), PHP_EOL;
+}
+
+
+/***********************************************
+* Get single report schedule
+***********************************************/
+/*
+$apiInstance = new SellingPartnerApi\Api\ReportsV20210630Api($config);
+$report_schedule_id = '50006019548'; // string | The identifier for the report schedule. This identifier is unique only in combination with a seller ID.
+
+try {
+    $result = $apiInstance->getReportSchedule($report_schedule_id);
+	echo "<pre>";
+    print_r($result);
+	echo "</pre>";
+} catch (Exception $e) {
+    echo 'Exception when calling ReportsV20210630Api->getReportSchedule: ', $e->getMessage(), PHP_EOL;
+}
