@@ -7,7 +7,7 @@
 			echo PHP_EOL . "Converting new reports..." . PHP_EOL;
 			require_once('convertReports.php');
 			
-			unlink('..\amazonReportTemp.txt');
+			//unlink('..\amazonReportTemp.txt');
 		}
 		else{
 			echo "No temp reports file available!";
